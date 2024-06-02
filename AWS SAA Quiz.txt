@@ -1,0 +1,242 @@
+1.  What is a proper definition of an IAM Role?
+
+IAM entity that defines a set of permissions for making reqs to aws seriecs and will be used by an aws service.
+
+2. Which of the following is an IAM Security Tool? --> IAM Credential report
+
+3. Which answer is INCORRECT regarding IAM Users? --> IAM users access aws services using root creds
+
+4. Which of the following is an IAM best practice? --> Do not use root user account
+
+5. What are IAM Policies? --> Json document defines set of permission for making reqs to aws services can be used by IAM users,
+                              Roles and user gps
+
+6. Which principle should you apply regarding IAM Permissions? --> Grant least privilege
+
+7. What should you do to increase your root account security? --> Enable MFA
+
+8. IAM User Groups can contain IAM Users and other User Groups--> False
+
+9. An IAM policy consists of one or more statements. A statement in an IAM Policy consists of the following, EXCEPT:--> Version
+
+10. You would like to deploy a High-Performance Computing (HPC) application on EC2 instances. Which EC2 instance type should you choose? --> Compute instance
+
+11. Which EC2 Purchasing Option should you use for an application you plan to run on a server continuously for 1 year?
+    
+    Reservd instance
+
+12. Which EC2 Instance Type should you choose for a critical application that uses an in-memory database?
+    Memory optimized
+
+13. You have an e-commerce application with an OLTP database hosted on-premises. This application has popularity which results in its database has thousands of requests per second. You want to migrate the database to an EC2 instance. Which EC2 Instance Type should you choose to handle this high-frequency OLTP database?
+
+Storage optimized
+
+14. Security Groups can be attached to only one EC2 instance. False
+
+15. You're planning to migrate on-premises applications to AWS. Your company has strict compliance requirements that require your applications to run on dedicated servers. You also need to use your own server-bound software license to reduce costs. Which EC2 Purchasing Option is suitable for you?
+
+Ans: Dedicated hosts
+
+16. You would like to deploy a database technology on an EC2 instance and the vendor license bills you based on the physical cores and underlying network socket visibility. Which EC2 Purchasing Option allows you to get visibility into them?
+
+Ans: Dedicated hosts
+
+17. You are running a website on 10 EC2 instances fronted by an Elastic Load Balancer. Your users are complaining about the fact that the website always asks them to re-authenticate when they are moving between website pages. You are puzzled because it's working just fine on your machine and in the Dev environment with 1 EC2 instance. What could be the reason?
+
+Ans: ELB does not have enabled sticky session
+
+18. Your boss asked you to scale your Auto Scaling Group based on the number of requests per minute your application makes to your database. What should you do?
+
+Ans: There's no CloudWatch Metric for "requests per minute" for backend-to-database connections. You need to create a CloudWatch Custom Metric, then create a CloudWatch Alarm.
+
+19. You have set up read replicas on your RDS database, but users are complaining that upon updating their social media posts, they do not see their updated posts right away. What is a possible cause for this?
+
+Ans:Read replicas have asynchronus replication,therefore its likely users will read eventual consistence.
+
+20. Which RDS (NOT Aurora) feature when used does not require you to change the SQL connection string?
+
+ans: Multi-AZ keeps the same connection string regardless of which database is up.
+
+21. Your application running on a fleet of EC2 instances managed by an Auto Scaling Group behind an Application Load Balancer. Users have to constantly log back in and you don't want to enable Sticky Sessions on your ALB as you fear it will overload some EC2 instances. What should you do?
+
+ans: Store session data in elastic cache
+
+Storing Session Data in ElastiCache is a common pattern to ensuring different EC2 instances can retrieve your user's state if needed
+
+22. An analytics application is currently performing its queries against your main production RDS database. These queries run at any time of the day and slow down the RDS database which impacts your users' experience. What should you do to improve the users' experience?
+
+Ans: setup read replica 
+
+Read Replicas will help as your analytics application can now perform queries against it, and these queries won't impact the main production RDS database.	
+
+23. Your company has a production Node.js application that is using RDS MySQL 5.6 as its database. A new application programmed in Java will perform some heavy analytics workload to create a dashboard on a regular hourly basis. What is the most cost-effective solution you can implement to minimize disruption for the main application?
+
+ans: Create read replica in diff az and run analytical workload on the replica db
+
+24. You would like to create a disaster recovery strategy for your RDS PostgreSQL database so that in case of a regional outage the database can be quickly made available for both read and write workloads in another AWS Region. The DR database must be highly available. What do you recommend?
+
+ans: create read replica in diff region and enable multi az on the read replica
+
+25. You want to install software updates on 100s of Linux EC2 instances that you manage. You want to store these updates on shared storage which should be dynamically loaded on the EC2 instances and shouldn't require heavy operations. What do you suggest?
+
+Ans: store the s/w updates on EFS and mount EFS as n/w drive at startup
+
+EFS is a network file system (NFS) that allows you to mount the same file system to 100s of EC2 instances. Storing software updates on an EFS allows each EC2 instance to access them.
+
+26. You are looking to get recommendations for S3 Lifecycle Rules. How can you analyze the optimal number of days to move objects between different storage tiers?
+
+Ans: S3 Analytics
+
+27. You would like to retrieve a subset of your dataset stored in S3 with the .csv format. You would like to retrieve a month of data and only 3 columns out of 10, to minimize compute and network costs. What should you use?
+
+Ans: S3 select
+
+28. A company is preparing for compliance and regulatory review on its infrastructure on AWS. Currently, they have their files stored on S3 buckets that are not encrypted, which must be encrypted as required for compliance and regulatory review. Which S3 feature allows them to encrypt all files in their S3 buckets in the most efficient and cost-effective way?
+
+Ans: S3 Batch operation
+
+29. An e-commerce company has its customers and orders data stored in an S3 bucket. The company’s CEO wants to generate a report to show the list of customers and the revenue for each customer. Customer data stored in files on the S3 bucket has sensitive information that we don’t want to expose in the report. How do you recommend the report can be created without exposing sensitive information?
+
+Ans: Use s3 object lambda to change the objs before before they retrieved by the generate reported application
+
+30. You suspect that some of your employees try to access files in an S3 bucket that they don't have access to. How can you verify this is indeed the case without them noticing?
+
+Ans: Enable s3 access logs and analyse them using Athena
+
+=> S3 Access Logs log all the requests made to S3 buckets and Amazon Athena can then be used to run serverless analytics on top of the log files.
+
+31. For compliance reasons, your company has a policy mandate that database backups must be retained for 4 years. It shouldn't be possible to erase them. What do you recommend?
+
+Ans: Glacier vaults with vault lock policy
+
+32. You need to move hundreds of Terabytes into Amazon S3, then process the data using a fleet of EC2 instances. You have a 1 Gbit/s broadband. You would like to move the data faster and possibly processing it while in transit. What do you recommend?
+
+Ans: Snowball Edge is the right answer as it comes with computing capabilities and allows you to pre-process the data while it's being moved into Snowball.
+
+33. You want to expose virtually infinite storage for your tape backups. You want to keep the same software you're using and want an iSCSI compatible interface. What do you use?
+
+Ans: AWS storage gateway- Tape gateway
+
+34. Which of the following protocols is NOT supported by AWS Transfer Family?
+
+Ans: Transport layer security(TLS)
+
+AWS Transfer Family is a managed service for file transfers into and out of S3 or EFS using the FTP protocol, thus TLS is not supported.
+
+35. A company uses a lot of files and data which is stored in an FSx for Windows File Server storage on AWS. Those files are currently used by the resources hosted on AWS. There’s a requirement for those files to be accessed on-premises with low latency. Which AWS service can help you achieve this?
+
+Ans: FSx file gateway
+
+36. A Solutions Architect is working on planning the migration of a startup company from on-premises to AWS. Currently, their infrastructure consists of many servers and 30 TB of data hosted on a shared NFS storage. He has decided to use Amazon S3 to host the data. Which AWS service can efficiently migrate the data from on-premises to S3?
+
+Ans: AWS Data Sync
+
+=> suited to migrate a large amount of data from an S3 bucket to an EFS file system
+
+37. A Machine Learning company is working on a set of datasets that are hosted on S3 buckets. The company decided to release those datasets to the public to be useful for others in their research, but they don’t want to configure the S3 bucket to be public. And those datasets should be exposed over the FTP protocol. What can they do to do the requirement efficiently and with the least effort?
+
+Ans: Use AWS Transfer family
+
+38. A company is running Amazon S3 File Gateway to host their data on S3 buckets and is able to mount them on-premises using SMB. The data currently is hosted on S3 Standard storage class and there is a requirement to reduce the costs for S3. So, they have decided to migrate some of those data to S3 Glacier. What is the most efficient way they can use to move the data to S3 Glacier automatically?
+
+Ans: Use s3 lifecycle policy
+
+39. A company is using AWS to host its public websites and internal applications. Those different websites and applications generate a lot of logs and traces. There is a requirement to centrally store those logs and efficiently search and analyze those logs in real-time for detection of any errors and if there is a threat. Which AWS service can help them efficiently store and analyze logs?
+
+Ans: Amazon opensearch service
+
+40. You have an on-premises application that is used together with an on-premises Apache Kafka to receive a stream of clickstream events from multiple websites. You have been tasked to migrate this application as soon as possible without any code changes. You decided to host the application on an EC2 instance. What is the best option you recommend to migrate Apache Kafka?
+
+Ans: Amazon MSK
+
+41. A company has an on-premises website that uses ReactJS as its frontend, NodeJS as its backend, and MongoDB for the database. There are some issues with the self-hosted MongoDB database as there is a lot of maintenance required and they don’t have and can’t afford the resources or experience to handle those issues. So, a decision was made to migrate the website to AWS. They have decided to host the frontend ReactJS application in an S3 bucket and the NodeJS backend on a set of EC2 instances. Which AWS service can they use to migrate the MongoDB database that provides them with high scalability and availability without making any code changes?
+
+Ans: Amazon Document DB
+
+42. A company using a self-hosted on-premises Apache Cassandra database which they want to migrate to AWS. Which AWS service can they use which provides them with a fully managed, highly available, and scalable Apache Cassandra database?
+
+Ans: Amazon Keyspaces
+
+43. Before you create a DynamoDB table, you need to provision the EC2 instance the DynamoDB table will be running on.
+
+Ans:False
+
+44. You want to make a Disaster Recovery plan where you have a scaled-down version of your system up and running, and when a disaster happens, it scales up quickly. Which DR strategy should you choose?
+
+Ans: Warm standby
+
+45. A web application hosted on a fleet of EC2 instances managed by an Auto Scaling Group. You are exposing this application through an Application Load Balancer. Both the EC2 instances and the ALB are deployed on a VPC with the following CIDR 192.168.0.0/18. How do you configure the EC2 instances' security group to ensure only the ALB can access them on port 80?
+
+Ans; Add inbound rule with 80port and ALB's sg as the source
+
+=> This is the most secure way of ensuring only the ALB can access the EC2 instances. Referencing by security groups in rules is an extremely powerful rule 
+
+46. You would like to externally maintain the configuration values of your main database, to be picked up at runtime by your application. What's the best place to store them to maintain control and version history?
+
+Ans: SSM parameter store
+
+
+47. An online-payment company is using AWS to host its infrastructure. The frontend is created using VueJS and is hosted on an S3 bucket and the backend is developed using PHP and is hosted on EC2 instances in an Auto Scaling Group. As their customers are worldwide, they use both CloudFront and Aurora Global database to implement multi-region deployments to provide the lowest latency and provide availability, and resiliency. A new feature required which gives customers the ability to store data encrypted on the database and this data must not be disclosed even by the company admins. The data should be encrypted on the client side and stored in an encrypted format. What do you recommend to implement this?
+
+Ans: Using cleint-side aurora encryption snd KMS multi-region keys
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
